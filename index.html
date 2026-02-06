@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Justicia y Transición en la Gobernanza Climática Urbana</title>
+    <!-- Fuentes para tipografía académica y legible -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Iconos para botones e ilustraciones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+/* 1. CONFIGURACIÓN BASE (Tema: Journal/Analog) */
+* { box-sizing: border-box; }
+
+body {
+    background-color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    margin: 0;
+    padding: 40px 0;
+    font-family: 'Merriweather', serif; /* Fuente serif para legibilidad tipo "paper" */
+}
+
+/* Contenedor principal de la diapositiva */
+.slide-container {
+    background-color: #fffbf0; /* Crema cálido */
+    width: 1280px;
+    height: 720px;
+    border-radius: 4px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
+    position: relative; /* Contexto de posicionamiento para los modales */
+    overflow: hidden; /* Mantiene el contenido dentro de los bordes redondeados */
+    display: flex;
+    flex-direction: column;
+    padding: 60px;
+    color: #2c3e50;
+    flex-shrink: 0; /* Evita que las diapositivas se aplasten */
+}
+
+/* Elementos decorativos de fondo (Barra superior estilo papel membretado) */
+.slide-container::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 8px;
+    background: linear-gradient(90deg, #d35400, #27ae60); /* Naranja (Reactivo) y Verde (Proactivo) */
+    z-index: 10;
+}
+
+/* 2. TIPOGRAFÍA */
+h1, h2, h3, h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: #2c3e50;
+    margin: 0;
+}
+
+h1 { font-size: 64px; font-weight: 700; letter-spacing: -1px; line-height: 1.1; }
+h2 { font-size: 42px; font-weight: 600; margin-bottom: 30px; border-bottom: 2px solid #ecf0f1; padding-bottom: 15px; }
+h3 { font-size: 26px; font-weight: 600; color: #34495e; margin-bottom: 12px; }
+
+p, li {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #4a5568;
+    margin-bottom: 15px;
+}
+
+/* Estilos específicos para texto enriquecido/narrativo */
+.prose-summary {
+    font-size: 19px;
+    color: #2c3e50;
+    font-weight: 300;
+}
+
+.citation {
+    font-size: 14px;
+    color: #7f8c8d;
+    font-style: italic;
+    margin-top: 5px;
+    display: block;
+}
+
+/* 3. LAYOUTS */
+.content-area {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    justify-content: center;
+    z-index: 20; /* Asegura que el contenido esté sobre el fondo pero bajo el modal */
+}
+
+/* Layout: Dos columnas */
+.two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    height: 100%;
+    align-items: center;
+}
+
+/* Layout: Imagen derecha, Texto izquierda */
+.image-right-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr; /* Más espacio para texto */
+    gap: 50px;
+    height: 100%;
+    align-items: start;
+}
+
+.image-wrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Layout: Tiled Content */
+.tiled-content {
+    display: flex;
+    gap: 30px;
+    height: 100%;
+    align-items: stretch;
+}
+
+.tile {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.tile .icon {
+    font-size: 40px;
+    color: #27ae60;
+    margin-bottom: 20px;
+}
+
+/* 4. COMPONENTES INTERACTIVOS (Botones y Modales) */
+.btn-group {
+    margin-top: auto;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-read-more {
+    background-color: #2c3e50;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn-read-more:hover { 
+    background-color: #34495e; 
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-speaker-note {
+    background-color: #fff;
+    color: #d35400;
+    border: 2px solid #d35400;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-speaker-note:hover { 
+    background-color: #fcece0; 
+    transform: translateY(-2px);
+}
+
+/* MODAL / POPOVER SYSTEM */
+/* z-index muy alto para asegurar que cubra todo dentro de la diapositiva */
+.modal-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(44, 62, 80, 0.95); 
+    z-index: 9999; 
+    display: none; /* Oculto por defecto */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: #fff;
+    width: 85%;
+    max-height: 85%;
+    padding: 50px;
+    border-radius: 8px;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    font-family: 'Merriweather', serif;
+}
+
+.modal-content h3 {
+    color: #d35400;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 15px;
+    margin-top: 0;
+    font-size: 28px;
+}
+
+.modal-content p, .modal-content li {
+    font-size: 18px;
+    color: #2c3e50;
+    line-height: 1.8;
+}
+
+/* Botón de cerrar modal */
+.close-modal {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 32px;
+    cursor: pointer;
+    color: #7f8c8d;
+    transition: color 0.2s;
+}
+
+.close-modal:hover { color: #c0392b; }
+
+/* Scrollbar personalizada para el modal */
+.modal-content::-webkit-scrollbar { width: 10px; }
+.modal-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+.modal-content::-webkit-scrollbar-thumb { background: #bdc3c7; border-radius: 4px; border: 2px solid #f1f1f1; }
+.modal-content::-webkit-scrollbar-thumb:hover { background: #95a5a6; }
+
+/* Full Background Layout */
+.full-bg-slide {
+    padding: 0;
+}
+.full-bg-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.3));
+    width: 100%; height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px;
+}
+.full-bg-overlay h2, .full-bg-overlay p { color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+.full-bg-overlay h2 { border-color: rgba(255,255,255,0.3); }
+
+/* Nota de texto completo */
+.full-text-indicator {
+    display: inline-block;
+    background: #ecf0f1;
+    color: #7f8c8d;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Título -->
+<div class="slide-container full-bg-slide" id="slide1">
+    <div style="background-image: url('https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; width: 100%; height: 100%;">
+        <div class="full-bg-overlay">
+            <h1 style="color: #fff; font-size: 72px; margin-bottom: 20px;">Exploring the Scope for Just Transition</h1>
+            <p style="color: #ecf0f1; font-size: 28px; font-weight: 300; font-family: 'Montserrat', sans-serif;">Striking a Viable Balance Between Effective and Just Transition in Urban Climate Governance</p>
+            <p style="margin-top: 40px; font-size: 18px; color: #bdc3c7;">Hofstad, H. and M. Millstein (2025)</p>
+            <hr style="width: 100px; border: 1px solid #e67e22; margin-top: 20px;">
+                        <p style="margin-top: 40px; font-size: 18px; color: #bdc3c7;">Presenta: Prof. Carlos A Navarrete (Febrero de 2026)</p>
+
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 2: Introducción (1 & 2) -->
+<div class="slide-container" id="slide2">
+    <div class="image-right-layout">
+        <div class="content-column">
+            <h2>Transformación y Contestación Social</h2>
+            <div class="prose-summary">
+                <p>Las políticas urbanas de sostenibilidad han dejado de ser marginales para convertirse en agendas económicas centrales en el Norte Global. Sin embargo, este éxito ha traído consigo una polarización inevitable.</p>
+                <p>Nos enfrentamos a una dicotomía en la movilización social: desde movimientos <strong>proactivos</strong> como <em>Extinction Rebellion</em>, que exigen urgencia, hasta movimientos <strong>reactivos</strong> que perciben estas políticas como amenazas existenciales a su estilo de vida.</p>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn-read-more" onclick="openModal('modal-intro-1')">
+                    <i class="fa-solid fa-book-open"></i> Texto Completo: Sec 1 & 2
+                </button>
+            </div>
+        </div>
+        <div class="image-wrapper">
+            <<img src="meet_2017.jpg" alt="Urban town hall meeting discussion">
+        </div>
+    </div>
+
+    <!-- MODAL CONTENT SLIDE 2 -->
+    <div id="modal-intro-1" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-intro-1')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">Texto Íntegro Recuperado</span>
+            <h3>1. Transformación de las políticas urbanas</h3>
+            <p>El texto original describe detalladamente cómo, en el contexto del Norte Global, las políticas urbanas de sostenibilidad y cambio climático han evolucionado drásticamente. Han pasado de ser impulsadas por actores marginales y activistas específicos a constituir agendas ampliamente aceptadas, institucionalizadas y económicamente relevantes. Esta integración en la economía principal marca un éxito, pero simultáneamente ha generado conflictos sociales y políticos profundos, expresados tanto en movimientos que exigen mayor acción climática como en contra-movimientos organizados que perciben estas políticas como amenazas directas a su estilo de vida establecido y bienestar económico.</p>
+            <p class="citation">Referencias Clave: Hartmann y Jehling (2019), Bulkeley et al. (2014), Patterson (2023), Pahl-Wostl y Patterson (2021)</p>
+            
+            <h3>2. Contestación social: movimientos pro-clima y contra-clima</h3>
+            <p>Se presentan dos tipos de movilización social diametralmente opuestos:</p>
+            <ul>
+                <li><strong>Movimientos proactivos:</strong> Ejemplificados por grupos como Extinction Rebellion y Fridays for Future. Estos actores demandan políticas mucho más estrictas, rápidas y radicales, argumentando que la inacción actual es una injusticia generacional.</li>
+                <li><strong>Movimientos reactivos:</strong> Incluyendo partidos populistas de derecha en Europa (como los Chalecos Amarillos en Francia o protestas similares en Noruega) y protestas del sector agrícola. Estos grupos consideran injustas las medidas climáticas, oponiéndose firmemente a restricciones como los peajes urbanos, la eliminación de aparcamientos y los precios altos del combustible.</li>
+            </ul>
+            <p>El argumento central es que estas posiciones no son meramente opiniones políticas, sino que se basan en valores profundamente divergentes sobre qué constituye la "sostenibilidad", qué es la "justicia" y cuáles deben ser las visiones de futuro para la ciudad.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 3: Ciudad Compacta y Riesgos (3 & 4) -->
+<div class="slide-container" id="slide3">
+    <div class="image-right-layout">
+        <div class="content-column">
+            <h2>El Dilema de la Ciudad Compacta</h2>
+            <div class="prose-summary">
+                <p>La "ciudad compacta" sirve como nuestro caso analítico principal. Aunque se presenta como el modelo ideal de eficiencia y sostenibilidad, la literatura crítica advierte que esta visión técnica puede ocultar profundas desigualdades sociales.</p>
+                <p>Si las políticas climáticas derivadas de este modelo no logran una aceptación amplia, corremos el riesgo de sufrir retrocesos políticos severos que deslegitimen la acción climática en su conjunto.</p>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn-read-more" onclick="openModal('modal-intro-2')">
+                    <i class="fa-solid fa-book-open"></i> Texto Completo: Sec 3 & 4
+                </button>
+            </div>
+        </div>
+        <div class="image-wrapper">
+            <img src="https://images.unsplash.com/photo-1459767129954-1b1c1f9b9ace?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sustainable compact city architecture">
+        </div>
+    </div>
+
+    <!-- MODAL CONTENT SLIDE 3 -->
+    <div id="modal-intro-2" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-intro-2')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">Texto Íntegro Recuperado</span>
+            <h3>3. El desarrollo de la ciudad compacta como caso analítico</h3>
+            <p>El artículo utiliza estratégicamente la "ciudad compacta" como el locus principal para analizar los valores en conflicto. Este modelo se ha convertido en la ortodoxia de la planificación urbana sostenible, promoviendo alta densidad, uso mixto del suelo y transporte público eficiente.</p>
+            <p>Sin embargo, se recupera aquí una crítica sustancial de la literatura: esta visión técnica a menudo enmascara desigualdades sociales. Al priorizar métricas de eficiencia (CO2 por cápita), se ignoran los efectos de gentrificación, desplazamiento y exclusión espacial que sufren las poblaciones de menores ingresos, alimentando así el resentimiento que nutre a los movimientos reactivos.</p>
+            <p class="citation">Referencias Clave: Hofstad (2012), Jenks & Jones (2010), Medved (2017), Kjærås (2021)</p>
+
+            <h3>4. Riesgos para la legitimidad de las políticas climáticas</h3>
+            <p>Se argumenta con fuerza que la falta de aceptación social no es solo un problema de relaciones públicas, sino una amenaza existencial para la política climática. Si las medidas se perciben como elitistas o injustas, pueden desencadenar un "backlash" (reacción violenta) político. Este retroceso no solo detiene proyectos individuales, sino que puede deslegitimar la ciencia climática y la necesidad de acción gubernamental en su totalidad, creando un estancamiento político peligroso.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 4: Transición Justa y Marco Teórico (5 & 6) -->
+<div class="slide-container" id="slide4">
+    <div class="two-column">
+        <div>
+            <h2>Transición Justa: Tensiones y Marco</h2>
+            <div class="prose-summary">
+                <p>La transición justa no es solo un concepto técnico; es el campo donde colisionan las preocupaciones laborales y comunitarias con la urgencia ambiental. Debemos entender que prácticas cotidianas "insostenibles" (como conducir) son a menudo fundamentales para la identidad y el sustento de las personas.</p>
+                <p>Este artículo desarrolla un marco teórico específico para analizar estas tensiones en ciudades escandinavas, comparando valores para prevenir retrocesos.</p>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn-read-more" onclick="openModal('modal-intro-3')">
+                    <i class="fa-solid fa-book-open"></i> Texto Completo: Sec 5 & 6
+                </button>
+            </div>
+        </div>
+        <div class="image-wrapper">
+             <img src="https://images.unsplash.com/photo-1517048676732-d65bc937f952?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Diverse urban crowd">
+        </div>
+    </div>
+
+    <!-- MODAL CONTENT SLIDE 4 -->
+    <div id="modal-intro-3" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-intro-3')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">Texto Íntegro Recuperado</span>
+            <h3>5. La transición justa: tensiones políticas y éticas</h3>
+            <p>El campo de la transición justa surge de la fusión entre las preocupaciones sindicales tradicionales y la política ambiental. El texto profundiza en cómo las prácticas cotidianas que los planificadores etiquetan como "insostenibles" —como comer carne roja, conducir automóviles privados o viajar en avión— no son simplemente hábitos que se puedan cambiar con educación.</p>
+            <p>Son, en cambio, elementos constitutivos de la identidad cultural y la seguridad económica de muchas personas. Por lo tanto, atacar estas prácticas sin ofrecer alternativas viables y culturalmente resonantes se percibe como un ataque a la identidad misma de estos grupos sociales.</p>
+            
+            <h3>6. Aporte específico del artículo</h3>
+            <p>El documento se distingue por:</p>
+            <ul>
+                <li>Desarrollar un marco teórico novedoso que une la justicia social urbana con la teoría de transiciones.</li>
+                <li>Focalizarse empíricamente en el contexto escandinavo, a menudo idealizado, para mostrar que incluso en sociedades con alto bienestar existen fracturas profundas.</li>
+                <li>Comparar sistemáticamente los valores, reclamos y experiencias vividas que determinan la aceptación o el rechazo radical de las políticas verdes.</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 5: Comparación - Valores Divergentes -->
+<div class="slide-container" id="slide5">
+    <h2 class="slide-title">Comparativa: Valores en Disputa</h2>
+    <div class="content-area">
+        <div class="two-column">
+            <div class="tile" style="border-top: 5px solid #27ae60;">
+                <h3 style="color: #27ae60;">Movimientos Proactivos</h3>
+                <p>Orientados al <strong>futuro</strong>. Buscan mejoras estructurales y trayectorias urgentes hacia la sostenibilidad (cero emisiones).</p>
+                <p style="font-size: 16px; font-style: italic;">"Justicia intergeneracional y global."</p>
+            </div>
+            <div class="tile" style="border-top: 5px solid #d35400;">
+                <h3 style="color: #d35400;">Movimientos Reactivos</h3>
+                <p>Centrados en el <strong>presente y el lugar</strong>. Buscan preservar espacios, tradiciones y modos de vida (ej. uso del coche, barrio).</p>
+                <p style="font-size: 16px; font-style: italic;">"Justicia local y defensa de lo propio."</p>
+            </div>
+        </div>
+        <div class="prose-summary" style="margin-top: 30px; text-align: center;">
+            <p>Sin embargo, estas categorías no son fijas. La proximidad personal altera la percepción: el apoyo a políticas climáticas suele disminuir cuando afecta directamente la esfera personal.</p>
+        </div>
+        <div class="btn-group" style="justify-content: center;">
+            <button type="button" class="btn-read-more" onclick="openModal('modal-comp-1')">
+                <i class="fa-solid fa-list"></i> Detalle: Sec 1, 2 & 3
+            </button>
+            <button type="button" class="btn-speaker-note" onclick="openModal('note-1')">
+                <i class="fa-regular fa-comment-dots"></i> Nota reflexiva
+            </button>
+        </div>
+    </div>
+
+    <!-- MODAL CONTENT SLIDE 5 -->
+    <div id="modal-comp-1" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-comp-1')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">Análisis Comparativo Detallado</span>
+            <h3>1. Diferencias fundamentales en la temporalidad</h3>
+            <p>Existe una divergencia ontológica en cómo estos grupos perciben el tiempo. Los <strong>proactivos</strong> están obsesionados con el futuro y los "tipping points" (puntos de no retorno), dispuestos a sacrificar el bienestar presente por la supervivencia futura. Los <strong>reactivos</strong>, por el contrario, están anclados en el presente y en la defensa de lo que ya tienen (su lugar, su comunidad, sus rutinas), viendo el cambio rápido como una agresión.</p>
+            
+            <h3>2. Carácter situacional de la justicia</h3>
+            <p>Las posiciones no son monolíticas. La investigación muestra que un individuo puede apoyar la acción climática en abstracto (nivel global/nacional) pero oponerse ferozmente a un peaje en su barrio (nivel local). Esta disonancia no es hipocresía, sino una jerarquización diferente de valores cuando el impacto es personal.</p>
+            
+            <h3>3. Valores colectivos en movimientos reactivos</h3>
+            <p>Es crucial no desestimar a los movimientos reactivos como meramente "egoístas". El texto recupera que a menudo defienden valores colectivos legítimos: la historia local, la cohesión de la comunidad vecinal y el derecho a la ciudad tal como la conocen y valoran.</p>
+        </div>
+    </div>
+    <div id="note-1" class="modal-overlay">
+        <div class="modal-content" style="border-left: 5px solid #d35400;">
+            <but Matices Críticos</h3>
+            <p>Las autoras no toman partido moral, sino analítico. El objetivo es mostrar que la transición justa solo es posible si se reconocen ambas posturas como legítimas en el debate público.</p>
+            <ul>
+                <li><strong>Proactivos:</strong> Énfasis en urgencia científica (Fridays for Future).</li>
+                <li><strong>Reactivos:</strong> Énfasis en protección social y cultural (Vecinos contra densificación).</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 6: Comparación - Reconocimiento y Justicia -->
+<div class="slide-container" id="slide6">
+    <h2 class="slide-title">Reconocimiento, Justicia y Legitimidad</h2>
+    <div class="tiled-content">
+        <div class="tile">
+            <div class="icon"><i class="fa-solid fa-scale-balanced"></i></div>
+            <h3>Terreno Común</h3>
+            <p>Si el discurso se desplaza de temas polarizados a valores profundos compartidos (preservación, comunidad), existe una cauta posibilidad de convergencia.</p>
+        </div>
+        <div class="tile">
+            <div class="icon"><i class="fa-solid fa-eye"></i></div>
+            <h3>Reconocimiento</h3>
+            <p>Clave para explicar la discrepancia. Los reactivos sufren estigmatización y falta de reconocimiento, sintiéndose "desviados" de la norma social verde.</p>
+        </div>
+        <div class="tile">
+            <div class="icon"><i class="fa-solid fa-gavel"></i></div>
+            <h3>Legitimidad</h3>
+            <p>La falta de participación genera "contested legitimacy". Cuando las políticas imponen cargas percibidas injustas, el riesgo de retroceso político es inminente.</p>
+        </div>
+    </div>
+    <div class="btn-group" style="margin-top: 30px; justify-content: center;">
+        <button type="button" class="btn-read-more" onclick="openModal('modal-comp-2')">
+            <i class="fa-solid fa-list"></i> Detalle: Sec 4, 5 & 6
+        </button>
+        <button type="button" class="btn-speaker-note" onclick="openModal('note-2')">
+            <i class="fa-regular fa-comment-dots"></i> Nota reflexiva
+    </div>
+
+    <!-- MODAL SLIDE 6 -->
+    <div id="modal-comp-2" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-comp-2')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">Análisis Detallado</span>
+            <h3>4. Terreno Común (Common Ground)</h3>
+            <p>A pesar de la polarización, el análisis sugiere que es posible construir convergencia si se apela a valores compartidos subyacentes, como el deseo de una comunidad segura, aire limpio y espacios verdes accesibles, en lugar de centrarse únicamente en la reducción de CO2 como métrica abstracta.</p>
+
+            <h3>5. Reconocimiento y Justicia (Fraser & Honneth)</h3>
+            <p>El texto utiliza la teoría del reconocimiento para explicar el conflicto. La justicia no es solo redistribuir dinero, sino reconocer estatus. Las normas sociales urbanas actuales elevan al "ciclista urbano cosmopolita" como el ciudadano ideal, mientras estigmatizan al conductor suburbano de clase trabajadora como moralmente inferior o "atrasado". Esta falta de reconocimiento cultural es un motor potente de la reacción populista.</p>
+
+            <h3>6. Legitimidad cuestionada</h3>
+            <p>Cuando los grupos sienten que sus valores son despreciados sistemáticamente por las élites planificadoras, retiran su consentimiento al sistema democrático local, generando crisis de legitimidad que paralizan la gobernanza.</p>
+        </div>
+    </div>
+    <div id="note-2" class="modal-overlay">
+        <div class="modal-content" style="border-left: 5px solid #27ae60;">
+            <button type="button" class="close-modal" onclick="closeModal('note-2')" title="Cerrar">&times;</button>
+            <h3>Teoría de Justicia</h3>
+            <p>Aquí es útil mencionar el marco de Nancy Fraser sobre las tres dimensiones de la justicia:</p>
+            <ol>
+                <li><strong>Redistribución:</strong> (Recursos económicos)</li>
+                <li><strong>Reconocimiento:</strong> (Estatus cultural y respeto)</li>
+                <li><strong>Representación:</strong> (Voz política)</li>
+            </ol>
+            <p>Los movimientos reactivos suelen sentir déficits agudos en las dimensiones 2 y 3.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 7: Proceso y Co-creación -->
+<div class="slide-container" id="slide7">
+    <div class="two-column">
+        <div class="image-wrapper">
+             <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Hands collaborating on map">
+        </div>
+        <div>
+            <h2>Justicia Procedimental y Co-creación</h2>
+            <div class="prose-summary">
+                <p>Existe una brecha crítica en la experiencia del proceso político. Mientras los proactivos se sienten socios, los reactivos denuncian exclusión y falta de transparencia ("manipulación").</p>
+                <p>La solución apunta hacia la <strong>co-creación</strong> y la deliberación. Una "visión inclusiva" que incorpore voces disidentes no solo mejora la legitimidad, sino que evita la mala distribución de cargas.</p>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn-read-more" onclick="openModal('modal-comp-3')">
+                    <i class="fa-solid fa-book-open"></i> Leer Completo: Sec 7-10
+                </button>
+                 <button type="button" class="btn-speaker-note" onclick="openModal('note-3')">
+                    <i class="fa-regular fa-comment-dots"></i> Nota: Alcance
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL SLIDE 7 -->
+    <div id="modal-comp-3" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-comp-3')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">Texto Íntegro Recuperado</span>
+            <h3>7. Reclamos procedimentales</h3>
+            <p>Los grupos reactivos frecuentemente denuncian déficits procesales: falta de acceso a la información técnica, opacidad en la toma de decisiones y falta de previsibilidad sobre cómo cambiarán sus vidas. Sienten que las decisiones se toman a "puerta cerrada" por expertos desconectados.</p>
+            
+            <h3>8. Inclusión y 9. Deliberación</h3>
+            <p>Ambos grupos, paradójicamente, piden más democracia. La planificación tecnocrática (top-down) sin deliberación real polariza. El texto aboga por espacios deliberativos donde el conflicto no se suprima, sino que se canalice.</p>
+            
+            <h3>10. Co-creación como herramienta</h3>
+            <p>La co-creación se propone no solo como una técnica de diseño, sino como una herramienta de justicia. Al involucrar a los afectados en el diseño de las soluciones (ej. diseño de nuevas rutas de transporte), se puede aumentar la propiedad del proyecto y su legitimidad. Sin embargo, advierten Ciplet & Harrison (2020), esto debe institucionalizarse con cuidado para no replicar las jerarquías de poder existentes dentro de los talleres participativos.</p>
+        </div>
+    </div>
+    <div id="note-3" class="modal-overlay">
+        <div class="modal-content" style="border-left: 5px solid #2980b9;">
+            <button type="button" class="close-modal" onclick="closeModal('note-3')" title="Cerrar">&times;</button>
+            <h3>Alcance</h3>
+            <p>Lejos de ser irreconciliables, hay solapamiento: todos quieren ciudades habitables. Las autoras sostienen que las ciudades deben:</p>
+            <ol>
+                <li>Reconocer valores plurales (no solo valores verdes).</li>
+                <li>Revisar críticamente enfoques normalizados (cuestionar la "ciudad compacta").</li>
+                <li>Crear marcos de gobernanza colaborativa robustos.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 8: Implicaciones y Dilemas -->
+<div class="slide-container" id="slide8">
+    <div class="two-column">
+        <div class="tile">
+            <h3>Comprender las percepciones</h3>
+            <p>Entender los valores detrás de la acción colectiva es la llave maestra para la legitimidad. Debemos movernos hacia una "política de valores" (Rogers & McAuliffe, 2025).</p>
+        </div>
+        <div class="tile">
+            <h3>Dilemas de gobernanza</h3>
+            <p>El desafío es desarrollar enfoques matizados y reflexivos sin abandonar las ambiciones transformadoras necesarias para enfrentar la crisis climática.</p>
+        </div>
+    </div>
+    <div style="margin-top: 30px; text-align: center;">
+         <button type="button" class="btn-read-more" onclick="openModal('modal-imp-1')">
+            <i class="fa-solid fa-list"></i> Detalle Implicaciones
+        </button>
+         <button type="button" class="btn-speaker-note" onclick="openModal('note-4')">
+            <i class="fa-regular fa-comment-dots"></i> Nota: Balance
+        </button>
+    </div>
+
+    <div id="modal-imp-1" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-imp-1')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">Implicaciones Políticas</span>
+            <h3>1. Comprender percepciones</h3>
+            <p>La implicación principal es que la gobernanza climática no puede ser "ciega a los valores". Los planificadores deben desarrollar una alfabetización en valores para entender por qué una comunidad se opone a un parque eólico o a un carril bici, más allá de etiquetarlos como "NIMBYs" (Not In My Back Yard).</p>
+            
+            <h3>2. Dilemas de la urgencia vs. democracia</h3>
+            <p>Se plantea el dilema central: ¿Cómo ser lo suficientemente rápidos para evitar el colapso climático y lo suficientemente lentos para ser democráticos e inclusivos? El texto sugiere que ignorar la parte democrática (ser "efectivos" pero autoritarios) paradójicamente ralentiza el proceso a largo plazo debido a la resistencia social generada.</p>
+        </div>
+    </div>
+    <div id="note-4" class="modal-overlay">
+        <div class="modal-content" style="border-left: 5px solid #8e44ad;">
+            <button type="button" class="close-modal" onclick="closeModal('note-4')" title="Cerrar">&times;</button>
+            <h3>Balance Final</h3>
+            <p>Es posible compatibilizar reducción de emisiones con justicia social si se reconocen tensiones. El marco une el enfoque político-institucional con el de capacidades (Amartya Sen), preguntando: ¿Qué es lo que la gente es capaz de hacer y ser en esta transición?</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 9: Marco Triple Propuesto -->
+<div class="slide-container" id="slide9">
+    <h2 class="slide-title">Un Marco Triple para la Transición</h2>
+    <div class="tiled-content">
+        <div class="tile">
+            <div class="icon"><i class="fa-solid fa-users-rays"></i></div>
+            <h3>3.1. Reconocer Pluralidad</h3>
+            <p>Analizar posiciones desde una perspectiva de <strong>capacidades</strong>. Superar la caricatura de "Greta vs Populistas" para ver la complejidad real de los valores humanos.</p>
+        </div>
+        <div class="tile">
+            <div class="icon"><i class="fa-solid fa-hand-holding-hand"></i></div>
+            <h3>3.2. Procedimientos Colaborativos</h3>
+            <p>Abrir la "caja negra" de las decisiones. Acceso a evaluaciones científicas y fortalecimiento de la inclusión de voces disidentes en todas las fases.</p>
+        </div>
+        <div class="tile">
+            <div class="icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+            <h3>3.3. Escrutinio Crítico</h3>
+            <p>Revisión continua de modelos normalizados como la "ciudad compacta". Discutir sus puntos ciegos alivia tensiones y revela preocupaciones invisibilizadas.</p>
+        </div>
+    </div>
+    <div class="btn-group" style="margin-top: 30px; justify-content: center;">
+        <button type="button" class="btn-read-more" onclick="openModal('modal-imp-3')">
+            <i class="fa-solid fa-book-open"></i> Texto Completo del Marco
+        </button>
+    </div>
+
+    <div id="modal-imp-3" class="modal-overlay">
+        <div class="modal-content">
+            <button type="button" class="close-modal" onclick="closeModal('modal-imp-3')" title="Cerrar">&times;</button>
+            <span class="full-text-indicator">El Marco Propuesto (Texto Íntegro)</span>
+            <h3>3.1 Reconocer la naturaleza plural y situada</h3>
+            <p>El estudio revela una realidad compleja. Partir de valores centrales ayuda a corregir prejuicios. Se requiere un enfoque que valide las experiencias vividas de todos los residentes urbanos, entendiendo que la resistencia al cambio no es necesariamente negacionismo climático, sino defensa de una forma de vida.</p>
+            
+            <h3>3.2 Procedimientos colaborativos y transparentes</h3>
+            <p>La falta de acceso erosiona legitimidad. Recomendación: abrir el proceso político desde la fase de definición del problema, no solo en la fase de implementación. Esto requiere recursos para que los grupos marginados puedan participar en igualdad de condiciones técnicas.</p>
+            
+            <h3>3.3 Redistribución y escrutinio crítico</h3>
+            <p>Es necesario someter a prueba constante los dogmas de la planificación. Escuchar posiciones alternativas mejora la calidad de las soluciones y revela puntos ciegos del modelo de ciudad compacta (por ejemplo, cómo afecta a las familias numerosas, a los trabajadores por turnos o a los ancianos).</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 10: Conclusión Visual -->
+<div class="slide-container full-bg-slide" id="slide10">
+    <div style="background-image: url('http://googleusercontent.com/image_collection/image_retrieval/7034977028706760486'); background-size: cover; background-position: center; width: 100%; height: 100%;">
+        <div class="full-bg-overlay">
+            <h2 style="font-size: 58px; margin-bottom: 30px;">Hacia una Gobernanza Legítima</h2>
+            <p style="font-size: 24px; max-width: 900px; color: #fff; font-weight: 400; line-height: 1.5;">La legitimidad se construye cuando las personas se sienten reconocidas, incluidas y escuchadas. Equilibrar ambición sostenible con valores plurales es el camino para superar la polarización.</p>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPTS PARA INTERACTIVIDAD -->
+<script>
+    /**
+     * Función para abrir el modal.
+     * Busca el elemento por ID y cambia su display a 'flex'.
+     * Incluye registro en consola para depuración.
+     */
+    function openModal(id) {
+        var modal = document.getElementById(id);
+        if (modal) {
+            modal.style.display = 'flex';
+            console.log('Abriendo modal: ' + id);
+        } else {
+            console.error('Error: No se encontró el modal con ID: ' + id);
+            alert('Error: No se puede abrir el contenido. ID no encontrado: ' + id);
+        }
+    }
+
+    /**
+     * Función para cerrar el modal.
+     */
+    function closeModal(id) {
+        var modal = document.getElementById(id);
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Cerrar modal al hacer clic fuera del contenido (en el fondo oscuro)
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal-overlay')) {
+            event.target.style.display = "none";
+        }
+    }
+</script>
+
+</body>
+</html>
+```
