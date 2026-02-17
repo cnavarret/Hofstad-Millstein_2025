@@ -300,6 +300,50 @@ p, li {
     font-weight: 600;
 }
 
+/* 5. ADAPTACIÓN PARA DISPOSITIVOS MÓVILES */
+@media (max-width: 1280px) {
+    .slide-container {
+        width: 95%;
+        height: auto; /* Permite que el contenido crezca verticalmente */
+        min-height: auto;
+        padding: 30px 20px;
+    }
+
+    /* Convertir grids y flex horizontales a columnas verticales */
+    .two-column, .image-right-layout, .tiled-content {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        gap: 30px;
+    }
+
+    /* Ajustar imágenes para que no ocupen demasiado alto pero se vean bien */
+    .image-wrapper {
+        width: 100%;
+        height: 250px;
+        order: -1; /* Mueve la imagen al principio del bloque */
+    }
+
+    /* Reducir tamaños de fuente */
+    h1 { font-size: 32px; }
+    h2 { font-size: 26px; }
+    h3 { font-size: 22px; }
+    p, li, .prose-summary { font-size: 16px; }
+
+    /* Botones a ancho completo para facilitar el toque */
+    .btn-group { width: 100%; }
+    .btn-read-more, .btn-speaker-note { width: 100%; justify-content: center; }
+
+    /* Ajustes específicos para la portada (sobrescribiendo estilos en línea) */
+    .full-bg-overlay h1 { font-size: 36px !important; }
+    .full-bg-overlay p { font-size: 18px !important; }
+    
+    /* Ajustes de modales */
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+}
     </style>
 </head>
 <body>
@@ -335,6 +379,7 @@ p, li {
         </div>
         <div class="image-wrapper">
             <<img src="meet_2017.jpg" alt="Urban town hall meeting discussion">
+            <img src="meet_2017.jpg" alt="Urban town hall meeting discussion">
         </div>
     </div>
 
